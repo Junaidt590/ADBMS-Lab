@@ -1,0 +1,208 @@
+create database db;
+
+use db;
+
+Create table customer(cust_id int PRIMARY KEY,name varchar(18),address varchar(25));
+
+create table orders(oid int,item varchar(10),cid int,foreign key(cid) references customer(cust_id));
+ 
+desc customer;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| cust_id | int(11)     | NO   | PRI | NULL    |       |
+| name    | varchar(18) | YES  |     | NULL    |       |
+| address | varchar(25) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+
+desc orders;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| oid   | int(11)     | YES  |     | NULL    |       |
+| item  | varchar(10) | YES  |     | NULL    |       |
+| cid   | int(11)     | YES  | MUL | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+
+create table student(rollno int PRIMARY KEY,name varchar(10),age int);
+
+create table mark(rollno int,foreign key(rollno) references student(rollno),m1 int,m2 int,grade varchar(10));
+
+create table employee(emp_id int PRIMARY KEY,name varchar(20),salary int);create table qualification(emp_id int,foreign key(emp_id)references employee(emp_id),quali1 varchar(10),quali2 varchar(10),quali3 varchar(10));
+
+desc employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| emp_id | int(11)     | NO   | PRI | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| salary | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+desc qualification;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| emp_id | int(11)     | YES  | MUL | NULL    |       |
+| quali1 | varchar(10) | YES  |     | NULL    |       |
+| quali2 | varchar(10) | YES  |     | NULL    |       |
+| quali3 | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+desc mark;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | YES  | MUL | NULL    |       |
+| m1     | int(11)     | YES  |     | NULL    |       |
+| m2     | int(11)     | YES  |     | NULL    |       |
+| grade  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | NO   | PRI | NULL    |       |
+| name   | varchar(10) | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+ 
+alter table student drop age;
+ 
+alter table student add age int;
+
+desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | NO   | PRI | NULL    |       |
+| name   | varchar(10) | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+alter table student drop age;
+
+alter table student add age int first;
+
+desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| age    | int(11)     | YES  |     | NULL    |       |
+| rollno | int(11)     | NO   | PRI | NULL    |       |
+| name   | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+ alter table student drop age;
+
+ alter table student add age int after name;
+
+desc student;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| rollno | int(11)     | NO   | PRI | NULL    |       |
+| name   | varchar(10) | YES  |     | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+alter table student add last_name varchar(20)not null after age,add 
+
+first_name varchar(20)null after last_name;
+
+desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(10) | YES  |     | NULL    |       |
+| age        | int(11)     | YES  |     | NULL    |       |
+| last_name  | varchar(20) | NO   |     | NULL    |       |
+| first_name | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+alter table student modify last_name char(10);
+ 
+alter table student change last_name lname bigint;
+
+desc student;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(10) | YES  |     | NULL    |       |
+| age        | int(11)     | YES  |     | NULL    |       |
+| lname      | bigint(20)  | YES  |     | NULL    |       |
+| first_name | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+alter table student modify age int not null default 1;
+
+alter table student rename to students;
+
+desc students;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| rollno     | int(11)     | NO   | PRI | NULL    |       |
+| name       | varchar(10) | YES  |     | NULL    |       |
+| age        | int(11)     | NO   |     | 1       |       |
+| lname      | bigint(20)  | YES  |     | NULL    |       |
+| first_name | varchar(20) | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+
+create temporary table STUDENT(stud_name varchar(30)not null,total_marks decimal(12,2)not null default 0.00,total_subjects int);
+
+desc STUDENT;
++----------------+---------------+------+-----+---------+-------+
+| Field          | Type          | Null | Key | Default | Extra |
++----------------+---------------+------+-----+---------+-------+
+| stud_name      | varchar(30)   | NO   |     | NULL    |       |
+| total_marks    | decimal(12,2) | NO   |     | 0.00    |       |
+| total_subjects | int(11)       | YES  |     | NULL    |       |
++----------------+---------------+------+-----+---------+-------+
+
+create table employer select * from employee;
+desc employer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| emp_id | int(11)     | NO   |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| salary | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+ALTER TABLE employer add id int primary key;
+desc employer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| emp_id | int(11)     | NO   |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| salary | int(11)     | YES  |     | NULL    |       |
+| id     | int(11)     | NO   | PRI | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+ALTER TABLE employer drop primary key;
+desc employer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| emp_id | int(11)     | NO   |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| salary | int(11)     | YES  |     | NULL    |       |
+| id     | int(11)     | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+ALTER TABLE employer drop id;
+desc employer;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| emp_id | int(11)     | NO   |     | NULL    |       |
+| name   | varchar(20) | YES  |     | NULL    |       |
+| salary | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+
+
