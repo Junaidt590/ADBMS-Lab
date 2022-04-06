@@ -1,6 +1,4 @@
-create database db;
 
-use db;
 
 Create table customer(cust_id int PRIMARY KEY,name varchar(18),address varchar(25));
 
