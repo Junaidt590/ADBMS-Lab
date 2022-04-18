@@ -94,7 +94,8 @@ QUE)CREATE AN INVOICE DATABASE AND HAVING FOLLOWING FIELDS
          INVOICE_ITEM(inv_id(fk),pid(fk),quantity)
 
 
-A)
+A)mysql> create database INVOICE;
+Query OK, 1 row affected (0.00 sec)
 mysql> USE INVOICE;
 Database changed
 mysql> SHOW TABLES;
