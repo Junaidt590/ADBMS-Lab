@@ -1,208 +1,180 @@
+                               EXERCISE 1-DDL COMMANDS-CREATE
+                               ------------------------------
 
-//ADD EXPERIMENT NUMBER
-//ADD QUESTION
-Create table customer(cust_id int PRIMARY KEY,name varchar(18),address varchar(25));
 
-create table orders(oid int,item varchar(10),cid int,foreign key(cid) references customer(cust_id));
- 
-desc customer;
+EXPERIMENT 1
+QUE)CREATE A TABLE EMPLOYEE HAVE THE FOLLOWING FIELDS(emp_id,name,city,dob,adhar_no)
+
+mysql> CREATE TABLE EMPLOYEE(EMP_ID INT,NAME VARCHAR(40),CITY VARCHAR(30),DOB DATE,ADHAR_NO INT(30));
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> DESC EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| EMP_ID   | int(11)     | YES  |     | NULL    |       |
+| NAME     | varchar(40) | YES  |     | NULL    |       |
+| CITY     | varchar(30) | YES  |     | NULL    |       |
+| DOB      | date        | YES  |     | NULL    |       |
+| ADHAR_NO | int(30)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+-----------------------------------------------------------------------------------------------------------------------
+
+EXPERIMENT 2
+QUE)CREATE TABLE STUDENT HAVE THE FIELDS(roll_no,name,age,address,gender) and add following constraints on it
+      Roll_no-primary key
+      Name-does not allow null values
+      Age-must be in between(0-99),does not allow null values
+
+
+mysql> CREATE TABLE STUDENT(ROLL_NO INT PRIMARY KEY,NAME VARCHAR(20) NOT NULL,AGE INT NOT NULL,GENDER CHAR DEFAULT 'M',CHECK(0<=AGE<100));
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> DESC STUDENT;
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
 +---------+-------------+------+-----+---------+-------+
-| cust_id | int(11)     | NO   | PRI | NULL    |       |
-| name    | varchar(18) | YES  |     | NULL    |       |
-| address | varchar(25) | YES  |     | NULL    |       |
+| ROLL_NO | int(11)     | NO   | PRI | NULL    |       |
+| NAME    | varchar(20) | NO   |     | NULL    |       |
+| AGE     | int(11)     | NO   |     | NULL    |       |
+| GENDER  | char(1)     | YES  |     | M       |       |
 +---------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
 
-desc orders;
-+-------+-------------+------+-----+---------+-------+
-| Field | Type        | Null | Key | Default | Extra |
-+-------+-------------+------+-----+---------+-------+
-| oid   | int(11)     | YES  |     | NULL    |       |
-| item  | varchar(10) | YES  |     | NULL    |       |
-| cid   | int(11)     | YES  | MUL | NULL    |       |
-+-------+-------------+------+-----+---------+-------+
+-------------------------------------------------------------------------------------------------------------------------
 
-create table student(rollno int PRIMARY KEY,name varchar(10),age int);
 
-create table mark(rollno int,foreign key(rollno) references student(rollno),m1 int,m2 int,grade varchar(10));
+EXPERIMENT 3
+QUE)CREATE TEMPORARY TABLE STUDENT1 OF STUDENT RELATION
 
-create table employee(emp_id int PRIMARY KEY,name varchar(20),salary int);create table qualification(emp_id int,foreign key(emp_id)references employee(emp_id),quali1 varchar(10),quali2 varchar(10),quali3 varchar(10));
 
-desc employee;
+mysql> CREATE TEMPORARY TABLE STUDENT1 SELECT * FROM STUDENT;
+Query OK, 0 rows affected (0.00 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC STUDENT1;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| ROLL_NO | int(11)     | NO   |     | NULL    |       |
+| NAME    | varchar(20) | NO   |     | NULL    |       |
+| AGE     | int(11)     | NO   |     | NULL    |       |
+| GENDER  | char(1)     | YES  |     | M       |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+EXPERIMENT 4
+QUE)CREATE A DUPLICATE TABLE OF EMPLOYEE
+
+
+mysql> CREATE TABLE  IF NOT EXISTS EMP SELECT * FROM EMPLOYEE;
+Query OK, 0 rows affected, 1 warning (0.00 sec)
+
+mysql> DESC EMP;
 +--------+-------------+------+-----+---------+-------+
 | Field  | Type        | Null | Key | Default | Extra |
 +--------+-------------+------+-----+---------+-------+
-| emp_id | int(11)     | NO   | PRI | NULL    |       |
-| name   | varchar(20) | YES  |     | NULL    |       |
-| salary | int(11)     | YES  |     | NULL    |       |
+| EMP_ID | int(11)     | NO   | PRI | NULL    |       |
+| NAME   | varchar(30) | YES  |     | NULL    |       |
+| SALARY | double      | YES  |     | NULL    |       |
 +--------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
 
-desc qualification;
-+--------+-------------+------+-----+---------+-------+
-| Field  | Type        | Null | Key | Default | Extra |
-+--------+-------------+------+-----+---------+-------+
-| emp_id | int(11)     | YES  | MUL | NULL    |       |
-| quali1 | varchar(10) | YES  |     | NULL    |       |
-| quali2 | varchar(10) | YES  |     | NULL    |       |
-| quali3 | varchar(10) | YES  |     | NULL    |       |
-+--------+-------------+------+-----+---------+-------+
+----------------------------------------------------------------------------------------------------------------------------
 
-desc mark;
-+--------+-------------+------+-----+---------+-------+
-| Field  | Type        | Null | Key | Default | Extra |
-+--------+-------------+------+-----+---------+-------+
-| rollno | int(11)     | YES  | MUL | NULL    |       |
-| m1     | int(11)     | YES  |     | NULL    |       |
-| m2     | int(11)     | YES  |     | NULL    |       |
-| grade  | varchar(10) | YES  |     | NULL    |       |
-+--------+-------------+------+-----+---------+-------+
-
-desc student;
-+--------+-------------+------+-----+---------+-------+
-| Field  | Type        | Null | Key | Default | Extra |
-+--------+-------------+------+-----+---------+-------+
-| rollno | int(11)     | NO   | PRI | NULL    |       |
-| name   | varchar(10) | YES  |     | NULL    |       |
-| age    | int(11)     | YES  |     | NULL    |       |
-+--------+-------------+------+-----+---------+-------+
- 
-alter table student drop age;  //USE CREATE COMMAND ONLY
- 
-alter table student add age int;
-
-desc student;
-+--------+-------------+------+-----+---------+-------+
-| Field  | Type        | Null | Key | Default | Extra |
-+--------+-------------+------+-----+---------+-------+
-| rollno | int(11)     | NO   | PRI | NULL    |       |
-| name   | varchar(10) | YES  |     | NULL    |       |
-| age    | int(11)     | YES  |     | NULL    |       |
-+--------+-------------+------+-----+---------+-------+
-
-alter table student drop age;
-
-alter table student add age int first;
-
-desc student;
-+--------+-------------+------+-----+---------+-------+
-| Field  | Type        | Null | Key | Default | Extra |
-+--------+-------------+------+-----+---------+-------+
-| age    | int(11)     | YES  |     | NULL    |       |
-| rollno | int(11)     | NO   | PRI | NULL    |       |
-| name   | varchar(10) | YES  |     | NULL    |       |
-+--------+-------------+------+-----+---------+-------+
-
- alter table student drop age;
-
- alter table student add age int after name;
-
-desc student;
-+--------+-------------+------+-----+---------+-------+
-| Field  | Type        | Null | Key | Default | Extra |
-+--------+-------------+------+-----+---------+-------+
-| rollno | int(11)     | NO   | PRI | NULL    |       |
-| name   | varchar(10) | YES  |     | NULL    |       |
-| age    | int(11)     | YES  |     | NULL    |       |
-+--------+-------------+------+-----+---------+-------+
-
-alter table student add last_name varchar(20)not null after age,add 
-
-first_name varchar(20)null after last_name;
-
-desc student;
-+------------+-------------+------+-----+---------+-------+
-| Field      | Type        | Null | Key | Default | Extra |
-+------------+-------------+------+-----+---------+-------+
-| rollno     | int(11)     | NO   | PRI | NULL    |       |
-| name       | varchar(10) | YES  |     | NULL    |       |
-| age        | int(11)     | YES  |     | NULL    |       |
-| last_name  | varchar(20) | NO   |     | NULL    |       |
-| first_name | varchar(20) | YES  |     | NULL    |       |
-+------------+-------------+------+-----+---------+-------+
-
-alter table student modify last_name char(10);
- 
-alter table student change last_name lname bigint;
-
-desc student;
-+------------+-------------+------+-----+---------+-------+
-| Field      | Type        | Null | Key | Default | Extra |
-+------------+-------------+------+-----+---------+-------+
-| rollno     | int(11)     | NO   | PRI | NULL    |       |
-| name       | varchar(10) | YES  |     | NULL    |       |
-| age        | int(11)     | YES  |     | NULL    |       |
-| lname      | bigint(20)  | YES  |     | NULL    |       |
-| first_name | varchar(20) | YES  |     | NULL    |       |
-+------------+-------------+------+-----+---------+-------+
-
-alter table student modify age int not null default 1;
-
-alter table student rename to students;
-
-desc students;
-+------------+-------------+------+-----+---------+-------+
-| Field      | Type        | Null | Key | Default | Extra |
-+------------+-------------+------+-----+---------+-------+
-| rollno     | int(11)     | NO   | PRI | NULL    |       |
-| name       | varchar(10) | YES  |     | NULL    |       |
-| age        | int(11)     | NO   |     | 1       |       |
-| lname      | bigint(20)  | YES  |     | NULL    |       |
-| first_name | varchar(20) | YES  |     | NULL    |       |
-+------------+-------------+------+-----+---------+-------+
-
-create temporary table STUDENT(stud_name varchar(30)not null,total_marks decimal(12,2)not null default 0.00,total_subjects int);
-
-desc STUDENT;
-+----------------+---------------+------+-----+---------+-------+
-| Field          | Type          | Null | Key | Default | Extra |
-+----------------+---------------+------+-----+---------+-------+
-| stud_name      | varchar(30)   | NO   |     | NULL    |       |
-| total_marks    | decimal(12,2) | NO   |     | 0.00    |       |
-| total_subjects | int(11)       | YES  |     | NULL    |       |
-+----------------+---------------+------+-----+---------+-------+
-
-create table employer select * from employee;
-desc employer;
-+--------+-------------+------+-----+---------+-------+
-| Field  | Type        | Null | Key | Default | Extra |
-+--------+-------------+------+-----+---------+-------+
-| emp_id | int(11)     | NO   |     | NULL    |       |
-| name   | varchar(20) | YES  |     | NULL    |       |
-| salary | int(11)     | YES  |     | NULL    |       |
-+--------+-------------+------+-----+---------+-------+
-
-ALTER TABLE employer add id int primary key;
-desc employer;
-+--------+-------------+------+-----+---------+-------+
-| Field  | Type        | Null | Key | Default | Extra |
-+--------+-------------+------+-----+---------+-------+
-| emp_id | int(11)     | NO   |     | NULL    |       |
-| name   | varchar(20) | YES  |     | NULL    |       |
-| salary | int(11)     | YES  |     | NULL    |       |
-| id     | int(11)     | NO   | PRI | NULL    |       |
-+--------+-------------+------+-----+---------+-------+
-
-ALTER TABLE employer drop primary key;  //USE CREATE COMMAND ONLY
-desc employer;
-+--------+-------------+------+-----+---------+-------+
-| Field  | Type        | Null | Key | Default | Extra |
-+--------+-------------+------+-----+---------+-------+
-| emp_id | int(11)     | NO   |     | NULL    |       |
-| name   | varchar(20) | YES  |     | NULL    |       |
-| salary | int(11)     | YES  |     | NULL    |       |
-| id     | int(11)     | NO   |     | NULL    |       |
-+--------+-------------+------+-----+---------+-------+
-
-ALTER TABLE employer drop id;
-desc employer;
-+--------+-------------+------+-----+---------+-------+
-| Field  | Type        | Null | Key | Default | Extra |
-+--------+-------------+------+-----+---------+-------+
-| emp_id | int(11)     | NO   |     | NULL    |       |
-| name   | varchar(20) | YES  |     | NULL    |       |
-| salary | int(11)     | YES  |     | NULL    |       |
-+--------+-------------+------+-----+---------+-------+
+EXPERIMENT 5
+QUE)CREATE AN INVOICE DATABASE AND HAVING FOLLOWING FIELDS
+         CUSTOMER(id,name,address,city,ph_no)
+         PRODUCT(pid,pname,price(default 0))
+         INVOICE_MASTER(inv_id,cust_id(FK),inv_date)
+         INVOICE_ITEM(inv_id(fk),pid(fk),quantity)
 
 
-//EXP1 IS DDL-CREATE SO USE CREATE COMMAND ONLY
+A)
+mysql> USE INVOICE;
+Database changed
+mysql> SHOW TABLES;
+Empty set (0.00 sec)
+
+mysql> CREATE TABLE CUSTOMER(ID INT,NAME CHAR(10),ADDRESS VARCHAR(20),CITY CHAR(15),PH_NO INT);
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> DESC CUSTOMER;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| ID      | int(11)     | NO   | PRI | NULL    |       |
+| NAME    | char(10)    | YES  |     | NULL    |       |
+| ADDRESS | varchar(20) | YES  |     | NULL    |       |
+| CITY    | char(15)    | YES  |     | NULL    |       |
+| PH_NO   | int(11)     | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> SHOW TABLES;
++-------------------+
+| Tables_in_INVOICE |
++-------------------+
+| CUSTOMER          |
++-------------------+
+1 row in set (0.00 sec)
+
+
+
+B)
+mysql> CREATE TABLE PRODUCT(PID INT,NAME CHAR(10),PNAME CHAR(10),PRICE INT DEFAULT 0);
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> DESC PRODUCT;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| PID   | int(11)  | YES  |     | NULL    |       |
+| NAME  | char(10) | YES  |     | NULL    |       |
+| PNAME | char(10) | YES  |     | NULL    |       |
+| PRICE | int(11)  | YES  |     | 0       |       |
++-------+----------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+
+
+C)
+mysql> CREATE TABLE INVOICE_MASTER(INV_ID INT,CUST_ID INT,INV_DATE DATE,FOREIGN KEY(CUST_ID) REFERENCES CUSTOMER(ID));
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> DESC INVOICE_MASTER;
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| INV_ID   | int(11) | YES  |     | NULL    |       |
+| CUST_ID  | int(11) | YES  | MUL | NULL    |       |
+| INV_DATE | date    | YES  |     | NULL    |       |
++----------+---------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+
+
+D)
+mysql> CREATE TABLE INVOICE_ITEM(INV_ID INT,PID INT,QUANTITY INT,FOREIGN KEY(INV_ID) REFERENCES INVOICE_MASTER(INV_ID),FOREIGN KEY(PID) REFERENCES PRODUCT(PID));
+Query OK, 0 rows affected (0.23 sec)
+
+mysql> DESC INVOICE_ITEM;
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| INV_ID   | int(11) | YES  | MUL | NULL    |       |
+| PID      | int(11) | YES  | MUL | NULL    |       |
+| QUANTITY | int(11) | YES  |     | NULL    |       |
++----------+---------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
