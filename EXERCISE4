@@ -1,0 +1,162 @@
+				EXERCISE 4 DML COMAND-UPDATE
+
+1. Update the price of a particular product.
+2. Change the name of city ‘calicut’ to ‘kozhikode’ in the customer table.
+3. Update all prices with 2% of its original price.
+4. Change the address, city, phone number of a particular customer.
+5. Change the quantity of a purchased product of inv_id ‘101’
+
+EXPERIMENT 1
+-----Update the price of a particular product-----
+
+mysql> SELECT * FROM PRODUCT;
++-----+----------+----------+-------+
+| PID | NAME     | PNAME    | PRICE |
++-----+----------+----------+-------+
+| 101 | DIAMOND  | DIAMOND  |   100 |
+| 102 | GOLD     | GOLD     |   120 |
+| 103 | SILVER   | SILVER   |   150 |
+| 104 | PLATINUM | PLATINUM |   200 |
+| 105 | COPPER   | COPPER   |   250 |
++-----+----------+----------+-------+
+
+mysql> UPDATE PRODUCT SET PRICE=180 WHERE PID=104;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM PRODUCT;
++-----+----------+----------+-------+
+| PID | NAME     | PNAME    | PRICE |
++-----+----------+----------+-------+
+| 101 | DIAMOND  | DIAMOND  |   100 |
+| 102 | GOLD     | GOLD     |   120 |
+| 103 | SILVER   | SILVER   |   150 |
+| 104 | PLATINUM | PLATINUM |   180 |
+| 105 | COPPER   | COPPER   |   250 |
++-----+----------+----------+-------+
+5 rows in set (0.00 sec)
+
+EXPERIMENT 2
+Change the name of city ‘calicut’ to ‘kozhikode’ in the customer table.
+
+mysql> SELECT * FROM CUSTOMER;
++----+--------+---------+------+-----------+
+| ID | NAME   | ADDRESS | CITY | PH_NO     |
++----+--------+---------+------+-----------+
+|  1 | SRAVAN | EKM     | EKM  | 964554144 |
+|  2 | SRUTHY | EKM     | EKM  | 964354144 |
+|  3 | SHYAM  | TSR     | TSR  | 964354144 |
+|  4 | SASI   | TVM     | TVM  | 964364144 |
+|  5 | ABIN   | CLT     | CLT  | 964364644 |
++----+--------+---------+------+-----------+
+
+
+mysql> UPDATE CUSTOMER SET CITY='KOZHIKODE' WHERE ID=5;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM CUSTOMER;
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  1 | SRAVAN | EKM     | EKM       | 964554144 |
+|  2 | SRUTHY | EKM     | EKM       | 964354144 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       | 964364144 |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+EXPERIMENT 3
+Update all prices with 2% of its original price
+
+mysql> SELECT * FROM PRODUCT;
++-----+----------+----------+-------+
+| PID | NAME     | PNAME    | PRICE |
++-----+----------+----------+-------+
+| 101 | DIAMOND  | DIAMOND  |   100 |
+| 102 | GOLD     | GOLD     |   120 |
+| 103 | SILVER   | SILVER   |   150 |
+| 104 | PLATINUM | PLATINUM |   180 |
+| 105 | COPPER   | COPPER   |   250 |
++-----+----------+----------+-------+
+
+mysql>  UPDATE PRODUCT SET PRICE=PRICE+(PRICE*(2/100));
+Query OK, 5 rows affected (0.04 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> SELECT * FROM PRODUCT;
++-----+----------+----------+--------+
+| PID | NAME     | PNAME    | PRICE  |
++-----+----------+----------+--------+
+| 101 | DIAMOND  | DIAMOND  | 102.00 |
+| 102 | GOLD     | GOLD     | 122.40 |
+| 103 | SILVER   | SILVER   | 153.00 |
+| 104 | PLATINUM | PLATINUM | 183.60 |
+| 105 | COPPER   | COPPER   | 255.00 |
++-----+----------+----------+--------+
+5 rows in set (0.00 sec)
+
+EXPERIMENT 4
+Change the address, city, phone number of a particular customer
+
+mysql> SELECT * FROM CUSTOMER;
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  1 | SRAVAN | EKM     | EKM       | 964554144 |
+|  2 | SRUTHY | EKM     | EKM       | 964354144 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       | 964364144 |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+
+
+mysql> UPDATE CUSTOMER SET ADDRESS='TVM',CITY='TVM',PH_NO=860659743 WHERE ID=2;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM CUSTOMER;
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  1 | SRAVAN | EKM     | EKM       | 964554144 |
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       | 964364144 |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+EXPERIMENT 5
+Change the quantity of a purchased product of inv_id ‘1001’
+
+mysql> SELECT * FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|   1001 |  102 |      200 |
+|   1002 |  102 |      500 |
+|   1001 |  102 |      200 |
+|   1003 |  105 |      100 |
+|   1005 |  103 |      150 |
++--------+------+----------+
+
+mysql> UPDATE INVOICE_ITEM SET QUANTITY=300 WHERE INV_ID=1001;
+Query OK, 2 rows affected (0.05 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> SELECT * FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|   1001 |  102 |      300 |
+|   1002 |  102 |      500 |
+|   1001 |  102 |      300 |
+|   1003 |  105 |      100 |
+|   1005 |  103 |      150 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+
+
