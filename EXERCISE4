@@ -1,4 +1,5 @@
 				EXERCISE 4 DML COMAND-UPDATE
+				---------------------------------
 
 1. Update the price of a particular product.
 2. Change the name of city ‘calicut’ to ‘kozhikode’ in the customer table.
@@ -20,7 +21,7 @@ mysql> SELECT * FROM PRODUCT;
 | 105 | COPPER   | COPPER   |   250 |
 +-----+----------+----------+-------+
 
-mysql> UPDATE PRODUCT SET PRICE=180 WHERE PID=104;
+mysql> UPDATE PRODUCT SET PRICE=180 WHERE PID=104; //MENTION PRODUCT NAME LIKE 'PEN'
 Query OK, 1 row affected (0.03 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
@@ -51,7 +52,7 @@ mysql> SELECT * FROM CUSTOMER;
 +----+--------+---------+------+-----------+
 
 
-mysql> UPDATE CUSTOMER SET CITY='KOZHIKODE' WHERE ID=5;
+mysql> UPDATE CUSTOMER SET CITY='KOZHIKODE' WHERE ID=5;  //WRONG
 Query OK, 1 row affected (0.03 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
@@ -129,7 +130,7 @@ mysql> SELECT * FROM CUSTOMER;
 5 rows in set (0.00 sec)
 
 EXPERIMENT 5
-Change the quantity of a purchased product of inv_id ‘1001’
+Change the quantity of a purchased product of inv_id ‘1001’ //PRODUCT ID NEEDED IN CONDITION
 
 mysql> SELECT * FROM INVOICE_ITEM;
 +--------+------+----------+
@@ -159,4 +160,4 @@ mysql> SELECT * FROM INVOICE_ITEM;
 5 rows in set (0.00 sec)
 
 
-
+//CORRECT THE QUERIES
