@@ -1,4 +1,5 @@
 						 EXERCISE 3 DML COMMANDS-INSERT 
+						 ------------------------------------
 	EXPERIMENT 1
 Insert values in EMPLOYEE table.
 
@@ -180,4 +181,4 @@ mysql> SELECT * FROM INVOICE_ITEM;
 +--------+------+----------+
 5 rows in set (0.00 sec)
 
-
+//UNDERSTAND INVOICE-ITEM TABLE
