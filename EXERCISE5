@@ -1,0 +1,183 @@
+					EXERCISE 5- DML COMMAND-DELETE
+1. Delete the record of customer id ‘10001’.
+2. Delete all purchase details of items its quantity less than 2.
+3. Delete the purchase details of product ‘pen’ in the in_id ‘101’.
+4. Delete details of employees who does not have phone number.
+5. Delete all records from STUDENT table.
+6. Delete Invoice details of a particular customer.
+7. Delete the first two records of INVOICE_ITEM table its purchase quantity is high.
+
+EXPERIMENT 1
+Delete the record of customer id ‘10001’.
+
+mysql> DELETE FROM CUSTOMER WHERE ID=1;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT * FROM CUSTOMER;
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       | 964364144 |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+EXPERIMENT 2
+Delete all purchase details of items its quantity less than 2.
+
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|   1001 |  102 |      300 |
+|   1002 |  102 |      500 |
+|   1001 |  102 |      300 |
+|   1003 |  105 |        1 |
+|   1005 |  103 |      150 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM INVOICE_ITEM WHERE QUANTITY<2;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|   1001 |  102 |      300 |
+|   1002 |  102 |      500 |
+|   1001 |  102 |      300 |
+|   1005 |  103 |      150 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+
+EXPERIMENT 3
+Delete the purchase details of product ‘pen’ in the in_id ‘101’.
+
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|   1001 |  102 |      300 |
+|   1002 |  102 |      500 |
+|   1001 |  102 |      300 |
+|   1005 |  103 |      150 |
++--------+------+----------+
+4 rows in set (0.00 sec)
+
+mysql> DELETE FROM INVOICE_ITEM WHERE INV_ID=1005;
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|   1001 |  102 |      300 |
+|   1002 |  102 |      500 |
+|   1001 |  102 |      300 |
++--------+------+----------+
+3 rows in set (0.00 sec)
+
+EXPERIMENT 4
+Delete details of employees who does not have phone number.
+
++------+-------+------+------------+-----------+-----------+
+| SSN  | NAME  | CITY | DOB        | ADHAR_NO  | PH_NO     |
++------+-------+------+------------+-----------+-----------+
+|    1 | ABIN  | TVM  | 1999-10-25 | 123456789 | 964554144 |
+|    2 | AlEN  | MLP  | 1999-11-25 | 123656789 | 964534144 |
+|    3 | JITHU | WYD  | 1999-11-30 | 123678349 | 966534144 |
+|    4 | ANAND | KNR  | 1999-08-30 | 623678349 | 963534144 |
+|    5 | ASWIN | CLT  | 1999-06-30 | 543678349 |      NULL |
++------+-------+------+------------+-----------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM EMPLOYEE WHERE PH_NO IS NULL;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from EMPLOYEE;
++------+-------+------+------------+-----------+-----------+
+| SSN  | NAME  | CITY | DOB        | ADHAR_NO  | PH_NO     |
++------+-------+------+------------+-----------+-----------+
+|    1 | ABIN  | TVM  | 1999-10-25 | 123456789 | 964554144 |
+|    2 | AlEN  | MLP  | 1999-11-25 | 123656789 | 964534144 |
+|    3 | JITHU | WYD  | 1999-11-30 | 123678349 | 966534144 |
+|    4 | ANAND | KNR  | 1999-08-30 | 623678349 | 963534144 |
++------+-------+------+------------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+EXPERIMENT 5
+Delete all records from STUDENT table.
+
++---------+--------+------+--------+
+| ROLL_NO | NAME   | AGE  | GENDER |
++---------+--------+------+--------+
+|       1 | ASWIN  |   30 | M      |
+|       2 | MIDHUN |   25 | M      |
+|       3 | SHAMIL |   25 | M      |
+|       4 | SHAMNA |   25 | F      |
+|       5 | TOM    |   26 | F      |
++---------+--------+------+--------+
+5 rows in set (0.04 sec)
+
+mysql> DELETE  FROM STUDENT;
+Query OK, 5 rows affected (0.03 sec)
+
+mysql> SELECT * FROM STUDENT;
+Empty set (0.00 sec)
+
+EXPERIMENT 6
+Delete Invoice details of a particular customer.
+
++--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|   1001 |       2 | 2022-01-01 |
+|   1002 |       3 | 2022-01-01 |
+|   1003 |       3 | 2022-03-31 |
+|   1004 |       2 | 2022-02-20 |
+|   1005 |       5 | 2022-04-25 |
++--------+---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM INVOICE_MASTER WHERE CUST_ID=5;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> SELECT * FROM INVOICE_MASTER;
++--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|   1001 |       2 | 2022-01-01 |
+|   1002 |       3 | 2022-01-01 |
+|   1003 |       3 | 2022-03-31 |
+|   1004 |       2 | 2022-02-20 |
++--------+---------+------------+
+4 rows in set (0.00 sec)
+
+EXPERIMENT 7
+Delete the first two records of INVOICE_ITEM table its purchase quantity is high.
+
+mysql> SELECT * FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|   1001 |  102 |      300 |
+|   1002 |  102 |      500 |
+|   1001 |  102 |      300 |
++--------+------+----------+
+3 rows in set (0.00 sec)
+
+mysql> DELETE FROM INVOICE_ITEM ORDER BY QUANTITY DESC LIMIT 2;
+Query OK, 2 rows affected (0.05 sec)
+
+mysql> SELECT * FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|   1001 |  102 |      300 |
++--------+------+----------+
+1 row in set (0.00 sec)
+
+
+
