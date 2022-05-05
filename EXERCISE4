@@ -21,7 +21,7 @@ mysql> SELECT * FROM PRODUCT;
 | 105 | COPPER   | COPPER   |   250 |
 +-----+----------+----------+-------+
 
-mysql> UPDATE PRODUCT SET PRICE=180 WHERE PID=104; //MENTION PRODUCT NAME LIKE 'PEN'
+mysql> UPDATE PRODUCT SET PRICE=180 WHERE PID=104 AND PNAME='PLATINUM';
 Query OK, 1 row affected (0.03 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
@@ -52,7 +52,7 @@ mysql> SELECT * FROM CUSTOMER;
 +----+--------+---------+------+-----------+
 
 
-mysql> UPDATE CUSTOMER SET CITY='KOZHIKODE' WHERE ID=5;  //WRONG
+mysql> UPDATE CUSTOMER SET CITY='KOZHIKODE' WHERE CITY='CLT'; 
 Query OK, 1 row affected (0.03 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
@@ -130,7 +130,7 @@ mysql> SELECT * FROM CUSTOMER;
 5 rows in set (0.00 sec)
 
 EXPERIMENT 5
-Change the quantity of a purchased product of inv_id ‘1001’ //PRODUCT ID NEEDED IN CONDITION
+Change the quantity of a purchased product of inv_id ‘1001’ 
 
 mysql> SELECT * FROM INVOICE_ITEM;
 +--------+------+----------+
@@ -143,7 +143,7 @@ mysql> SELECT * FROM INVOICE_ITEM;
 |   1005 |  103 |      150 |
 +--------+------+----------+
 
-mysql> UPDATE INVOICE_ITEM SET QUANTITY=300 WHERE INV_ID=1001;
+mysql> UPDATE INVOICE_ITEM SET QUANTITY=300 WHERE INV_ID=1001 AND PID=102;
 Query OK, 2 rows affected (0.05 sec)
 Rows matched: 2  Changed: 2  Warnings: 0
 
@@ -160,4 +160,3 @@ mysql> SELECT * FROM INVOICE_ITEM;
 5 rows in set (0.00 sec)
 
 
-//CORRECT THE QUERIES
