@@ -1,0 +1,320 @@
+						EXERCISE:6 SELECT QUERY 1
+
+1.List all customer details.
+2.List pname, price of all products.
+3.List all invoice items, avoid duplicates.
+4.List product price between 50rs and 150rs
+5.List the customer details who lives in ‘ekm’,’tvm’.
+6.List the invoice details from 1st January 2021 to 31st march 2021
+7.List the customer details who not live in ‘tvm’.
+8.List the customers who have no phone number.
+9.Display customer names in descending order.
+10.Display the customer details sorted in ascending by city and descending by names.
+11.Find the customer names start with ‘A’.
+12.Find the customer names who have ‘e’ or ‘a’ in them.
+13.Find the customer names who have at least 3 characters.
+14.List the names of customers their names have ‘r’ in second position.
+15.Find the customer names start with ‘a’ and are at least 3 characters in length.
+
+
+
+1.List all customer details.
+
+mysql> SELECT * FROM CUSTOMER;
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       | 964364144 |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+4 rows in set (0.04 sec)
+
+
+2.List pname, price of all products.
+
+mysql> SELECT PNAME,PRICE FROM PRODUCT;
++----------+--------+
+| PNAME    | PRICE  |
++----------+--------+
+| DIAMOND  | 102.00 |
+| GOLD     | 122.40 |
+| SILVER   | 153.00 |
+| PLATINUM | 183.60 |
+| COPPER   | 255.00 |
++----------+--------+
+5 rows in set (0.00 sec)
+
+
+3.List all invoice items, avoid duplicates.
+
+mysql> SELECT DISTINCT INV_ID FROM INVOICE_ITEM;
++--------+
+| INV_ID |
++--------+
+|   1001 |
++--------+
+1 row in set (0.00 sec)
+
+4.List product price between 50rs and 150rs
+
++-----+----------+----------+--------+
+| PID | NAME     | PNAME    | PRICE  |
++-----+----------+----------+--------+
+| 101 | DIAMOND  | DIAMOND  | 102.00 |
+| 102 | GOLD     | GOLD     | 122.40 |
+| 103 | SILVER   | SILVER   | 153.00 |
+| 104 | PLATINUM | PLATINUM | 183.60 |
+| 105 | COPPER   | COPPER   | 255.00 |
++-----+----------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT* FROM PRODUCT WHERE PRICE BETWEEN 50 AND 150;
++-----+---------+---------+--------+
+| PID | NAME    | PNAME   | PRICE  |
++-----+---------+---------+--------+
+| 101 | DIAMOND | DIAMOND | 102.00 |
+| 102 | GOLD    | GOLD    | 122.40 |
++-----+---------+---------+--------+
+2 rows in set (0.00 sec)
+
+
+5.List the customer details who lives in ‘ekm’,’tvm’.
+
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       | 964364144 |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+
+mysql> SELECT * FROM CUSTOMER WHERE CITY='TVM' OR CITY='EKM';
++----+--------+---------+------+-----------+
+| ID | NAME   | ADDRESS | CITY | PH_NO     |
++----+--------+---------+------+-----------+
+|  2 | SRUTHY | TVM     | TVM  | 860659743 |
+|  4 | SASI   | TVM     | TVM  | 964364144 |
++----+--------+---------+------+-----------+
+2 rows in set (0.00 sec)
+
+
+6.List the invoice details from 1st January 2021 to 31st march 2022
+2021
+
++--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|   1001 |       2 | 2021-01-10 |
+|   1002 |       3 | 2022-01-01 |
+|   1003 |       3 | 2022-03-31 |
+|   1004 |       2 | 2021-01-10 |
++--------+---------+------------+
+
+mysql> SELECT * FROM INVOICE_MASTER WHERE INV_DATE BETWEEN '2021-01-01' AND '2022-03-31';
++--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|   1001 |       2 | 2021-01-10 |
+|   1002 |       3 | 2022-01-01 |
+|   1003 |       3 | 2022-03-31 |
+|   1004 |       2 | 2021-01-10 |
++--------+---------+------------+
+4 rows in set (0.00 sec)
+
+
+7.List the customer details who not live in ‘tvm’.
+
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       | 964364144 |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT * FROM CUSTOMER WHERE CITY NOT IN ('TVM');
++----+-------+---------+-----------+-----------+
+| ID | NAME  | ADDRESS | CITY      | PH_NO     |
++----+-------+---------+-----------+-----------+
+|  3 | SHYAM | TSR     | TSR       | 964354144 |
+|  5 | ABIN  | CLT     | KOZHIKODE | 964364644 |
++----+-------+---------+-----------+-----------+
+2 rows in set (0.00 sec)
+
+
+8.List the customers who have no phone number.
+
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       |      NULL |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMER WHERE PH_NO IS NULL;
++----+------+---------+------+-------+
+| ID | NAME | ADDRESS | CITY | PH_NO |
++----+------+---------+------+-------+
+|  4 | SASI | TVM     | TVM  |  NULL |
++----+------+---------+------+-------+
+1 row in set (0.00 sec)
+
+
+9.Display customer names in descending order.
+
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       |      NULL |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+
+mysql> SELECT NAME FROM CUSTOMER ORDER BY NAME DESC;
++--------+
+| NAME   |
++--------+
+| SRUTHY |
+| SHYAM  |
+| SASI   |
+| ABIN   |
++--------+
+4 rows in set (0.00 sec)
+
+
+10.Display the customer details sorted in ascending by city and descending by names.
+
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       |      NULL |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+
+mysql> SELECT * FROM CUSTOMER ORDER BY CITY ASC, NAME DESC;
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  4 | SASI   | TVM     | TVM       |      NULL |
++----+--------+---------+-----------+-----------+
+4 rows in set (0.01 sec)
+
+
+11.Find the customer names start with ‘A’.
+
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       |      NULL |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+
+mysql> SELECT NAME FROM CUSTOMER WHERE NAME LIKE 'A%';
++------+
+| NAME |
++------+
+| ABIN |
++------+
+1 row in set (0.00 sec)
+
+
+12.Find the customer names who have ‘e’ or ‘a’ in them.
+
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       |      NULL |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+
+mysql> SELECT NAME FROM CUSTOMER WHERE NAME LIKE '%A%' OR '%E%';
++-------+
+| NAME  |
++-------+
+| SHYAM |
+| SASI  |
+| ABIN  |
++-------+
+3 rows in set, 1 warning (0.00 sec)
+
+
+13.Find the customer names who have at least 3 characters.
+
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       |      NULL |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+
+mysql> SELECT NAME FROM CUSTOMER WHERE LENGTH(NAME)!=3;
++--------+
+| NAME   |
++--------+
+| SRUTHY |
+| SHYAM  |
+| SASI   |
+| ABIN   |
++--------+
+4 rows in set (0.00 sec)
+
+
+14.List the names of customers their names have ‘r’ in second position.
+
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       |      NULL |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+
+mysql> SELECT NAME FROM CUSTOMER WHERE NAME LIKE '_R%';
++--------+
+| NAME   |
++--------+
+| SRUTHY |
++--------+
+1 row in set (0.00 sec)
+
+
+15.Find the customer names start with ‘a’ and are at least 3 characters in length.
+
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       |      NULL |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
++----+--------+---------+-----------+-----------+
+
+mysql> SELECT NAME FROM CUSTOMER WHERE NAME LIKE 'A%' AND LENGTH(NAME)!=3;
++------+
+| NAME |
++------+
+| ABIN |
++------+
+1 row in set (0.00 sec)
+
