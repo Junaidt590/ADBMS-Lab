@@ -113,7 +113,7 @@ mysql> SELECT * FROM CUSTOMER;
 +----+--------+---------+-----------+-----------+
 
 
-mysql> UPDATE CUSTOMER SET ADDRESS='TVM',CITY='TVM',PH_NO=860659743 WHERE ID=2;
+mysql> UPDATE CUSTOMER SET ADDRESS='TVM',CITY='TVM',PH_NO=860659743 WHERE ID=2; //MENTION CUSTOMER NAME
 Query OK, 1 row affected (0.04 sec)
 Rows matched: 1  Changed: 1  Warnings: 0
 
@@ -160,3 +160,4 @@ mysql> SELECT * FROM INVOICE_ITEM;
 5 rows in set (0.00 sec)
 
 
+//VERIFIED
