@@ -8,7 +8,7 @@
 7. Delete the first two records of INVOICE_ITEM table its purchase quantity is high.
 
 EXPERIMENT 1
-Delete the record of customer id ‘10001’.
+Delete the record of customer id ‘1’.
 
 mysql> DELETE FROM CUSTOMER WHERE ID=1;
 Query OK, 1 row affected (0.04 sec)
@@ -66,7 +66,7 @@ Delete the purchase details of product ‘pen’ in the in_id ‘101’.
 +--------+------+----------+
 4 rows in set (0.00 sec)
 
-mysql> DELETE FROM INVOICE_ITEM WHERE INV_ID=1005;
+mysql> DELETE FROM INVOICE_ITEM WHERE INV_ID=1005;//WRONG
 Query OK, 1 row affected (0.06 sec)
 
 mysql> select * from INVOICE_ITEM;
@@ -181,3 +181,4 @@ mysql> SELECT * FROM INVOICE_ITEM;
 
 
 
+//CORRECTION
