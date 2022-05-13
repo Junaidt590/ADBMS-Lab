@@ -1,0 +1,70 @@
+						EXERCISE: 9
+
+JOINS
+
+
+1.List the product name and quantity of invoice items.
+2.Display invoice details of the transaction dated ’31-01-2022’.
+3.Display the customer name, product name, invoice date of purchased item ‘pen’.
+4.Display all customer details and invoice details must include customer has not
+purchased items.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+1.List the product name and quantity of invoice items.
+
+mysql> SELECT PRODUCT.NAME,INVOICE_ITEM.QUANTITY FROM PRODUCT INNER JOIN INVOICE_ITEM ON PRODUCT.PID=INVOICE_ITEM.PID;
++----------+----------+
+| NAME     | QUANTITY |
++----------+----------+
+| GOLD     |      300 |
+| PLATINUM |       99 |
++----------+----------+
+2 rows in set (0.00 sec)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+2.Display invoice details of the transaction dated ’31-01-2022’.
+
+mysql> SELECT CUSTOMER.NAME,PRODUCT.NAME,PRODUCT.PRICE,INVOICE_MASTER.INV_ID,INVOICE_MASTER.INV_DATE,INVOICE_ITEM.QUANTITY FROM CUSTOMER INNER JOIN INVOICE_MASTER ON CUSTOMER.ID=INVOICE_MASTER.CUST_ID INNER JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID=INVOICE_ITEM.INV_ID INNER JOIN PRODUCT ON PRODUCT.PID=INVOICE_ITEM.PID WHERE INV_DATE='2022-03-31';
++-------+----------+--------+--------+------------+----------+
+| NAME  | NAME     | PRICE  | INV_ID | INV_DATE   | QUANTITY |
++-------+----------+--------+--------+------------+----------+
+| SHYAM | PLATINUM | 183.60 |   1003 | 2022-03-31 |       99 |
++-------+----------+--------+--------+------------+----------+
+1 row in set (0.00 sec)
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+3.Display the customer name, product name, invoice date of purchased item ‘pen’.
+
+mysql> SELECT CUSTOMER.NAME,PRODUCT.PNAME,INVOICE_MASTER.INV_DATE FROM CUSTOMER INNER JOIN INVOICE_MASTER ON CUSTOMER.ID=INVOICE_MASTER.CUST_ID INNER JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID=INVOICE_ITEM.INV_ID INNER JOIN PRODUCT ON PRODUCT.PID=INVOICE_ITEM.PID WHERE PNAME='PLATINUM';
++-------+----------+------------+
+| NAME  | PNAME    | INV_DATE   |
++-------+----------+------------+
+| SHYAM | PLATINUM | 2022-03-31 |
++-------+----------+------------+
+1 row in set (0.00 sec)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+4.Display all customer details and invoice details must include customer has not purchased items.
+
+
+mysql> SELECT CUSTOMER.NAME,PRODUCT.PNAME,INVOICE_MASTER.INV_ID,INVOICE_MASTER.INV_DATE,INVOICE_MASTER.INV_DATE FROM CUSTOMER LEFT JOIN INVOICE_MASTER ON CUSTOMER.ID=INVOICE_MASTER.CUST_ID LEFT JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID=INVOICE_ITEM.INV_ID LEFT JOIN PRODUCT ON PRODUCT.PID=INVOICE_ITEM.PID;
++--------+----------+--------+------------+------------+
+| NAME   | PNAME    | INV_ID | INV_DATE   | INV_DATE   |
++--------+----------+--------+------------+------------+
+| SRUTHY | GOLD     |   1001 | 2021-01-10 | 2021-01-10 |
+| SHYAM  | PLATINUM |   1003 | 2022-03-31 | 2022-03-31 |
+| SHYAM  | NULL     |   1002 | 2022-01-01 | 2022-01-01 |
+| SRUTHY | NULL     |   1004 | 2021-01-10 | 2021-01-10 |
+| SASI   | NULL     |   NULL | NULL       | NULL       |
+| ABIN   | NULL     |   NULL | NULL       | NULL       |
+| ARJUN  | NULL     |   NULL | NULL       | NULL       |
+| MATHEW | NULL     |   NULL | NULL       | NULL       |
++--------+----------+--------+------------+------------+
+8 rows in set (0.02 sec)
+
+
+
+
