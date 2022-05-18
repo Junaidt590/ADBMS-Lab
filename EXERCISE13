@@ -1,0 +1,75 @@
+								EXERCISE: 13
+
+13. TCL COMMANDS
+1. Commit
+2. Rollback
+3. Savepoint
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+mysql> create table st(rll int,id int);
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> set autocommit=off;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> INSERT INTO st VALUES(1,10);
+Query OK, 1 row affected (0.00 sec)
+
+
+mysql> commit;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from st;
++------+------+
+| rll  | id   |
++------+------+
+|    1 |   10 |
++------+------+
+1 row in set (0.00 sec)
+
+mysql> savepoint A;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> INSERT INTO st VALUES(2,20);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> savepoint B;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> INSERT INTO st VALUES(3,30);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from st;
++------+------+
+| rll  | id   |
++------+------+
+|    1 |   10 |
+|    2 |   20 |
+|    3 |   30 |
++------+------+
+3 rows in set (0.00 sec)
+
+mysql> ROLLBACK TO B;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from st;
++------+------+
+| rll  | id   |
++------+------+
+|    1 |   10 |
+|    2 |   20 |
++------+------+
+2 rows in set (0.00 sec)
+
+mysql> ROLLBACK TO A;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from st;
++------+------+
+| rll  | id   |
++------+------+
+|    1 |   10 |
++------+------+
+1 row in set (0.00 sec)
+
