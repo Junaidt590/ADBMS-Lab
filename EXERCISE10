@@ -1,0 +1,63 @@
+							EXERCISE: 10
+
+
+1.Create a view for customers who have purchased products.
+
+
+2.Create a view for invoice products[cname, , inv_id, product_id, quantity]
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1.Create a view for customers who have purchased products.
+
+mysql> CREATE VIEW CUSTOMER_PURCHASE AS SELECT CUSTOMER.NAME,PRODUCT.PNAME FROM CUSTOMER INNER JOIN INVOICE_MASTER ON CUSTOMER.ID=INVOICE_MASTER.CUST_ID INNER JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID=INVOICE_ITEM.INV_ID INNER JOIN PRODUCT ON INVOICE_ITEM.PID=PRODUCT.PID;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> SELECT * FROM CUSTOMER_PURCHASE;
++--------+----------+
+| NAME   | PNAME    |
++--------+----------+
+| SRUTHY | GOLD     |
+| SHYAM  | PLATINUM |
+| SHYAM  | GOLD     |
+| SHYAM  | GOLD     |
++--------+----------+
+4 rows in set (0.00 sec)
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+2.Create a view for invoice products[cname, , inv_id, product_id, quantity]
+
+mysql> CREATE VIEW INVOICE_PRODUCT AS SELECT CUSTOMER.NAME,INVOICE_MASTER.INV_ID,INVOICE_ITEM.PID,INVOICE_ITEM.QUANTITY FROM CUSTOMER LEFT JOIN INVOICE_MASTER ON CUSTOMER.ID=INVOICE_MASTER.CUST_ID LEFT JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID=INVOICE_ITEM.INV_ID;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SELECT * FROM INVOICE_PRODUCT;
++--------+--------+------+----------+
+| NAME   | INV_ID | PID  | QUANTITY |
++--------+--------+------+----------+
+| SRUTHY |   1001 |  102 |      300 |
+| SHYAM  |   1003 |  104 |       99 |
+| SHYAM  |   1002 |  102 |       10 |
+| SHYAM  |   1003 |  102 |       12 |
+| SRUTHY |   1004 | NULL |     NULL |
+| SASI   |   NULL | NULL |     NULL |
+| ABIN   |   NULL | NULL |     NULL |
+| ARJUN  |   NULL | NULL |     NULL |
+| MATHEW |   NULL | NULL |     NULL |
++--------+--------+------+----------+
+9 rows in set (0.00 sec)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
