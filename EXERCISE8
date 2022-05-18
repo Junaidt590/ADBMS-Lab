@@ -1,0 +1,178 @@
+						`	EXERCISE :8 SUBQUERY
+
+SUBQUERY
+1. List the customer names of invoice date 3rd February 2018.
+2. List the product name and price of each invoice item.
+3. List the product names, only include their purchased quantity more than 3.
+4. Find the product that has no sale.
+5. List the customer names who purchased the items ‘pen’ and ‘pencil’.
+6. Display the purchased product details of the customer ’xyz’.
+7. List the names of all customers who have purchased at least 2 products, make sure that no duplicate names in the result.
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+1. List the customer names of invoice date 3rd February 2018.
+
++--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|   1001 |       2 | 2021-01-10 |
+|   1002 |       3 | 2022-01-01 |
+|   1003 |       3 | 2022-03-31 |
+|   1004 |       2 | 2021-01-10 |
++--------+---------+------------+
+4 rows in set (0.04 sec)
+
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       |      NULL |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
+|  6 | ARJUN  | TVA     | TVM       | 698745326 |
+|  7 | MATHEW | TVK     | TVM       | 698765326 |
++----+--------+---------+-----------+-----------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT NAME FROM CUSTOMER WHERE ID IN(SELECT CUST_ID FROM INVOICE_MASTER WHERE INV_DATE='2022-03-31');
++-------+
+| NAME  |
++-------+
+| SHYAM |
++-------+
+1 row in set (0.00 sec)
+----------------------------------------------------------------------------------------------------------------------------------------------
+2. List the product name and price of each invoice item.
+
++-----+----------+----------+--------+
+| PID | NAME     | PNAME    | PRICE  |
++-----+----------+----------+--------+
+| 101 | DIAMOND  | DIAMOND  | 102.00 |
+| 102 | GOLD     | GOLD     | 122.40 |
+| 103 | SILVER   | SILVER   | 153.00 |
+| 104 | PLATINUM | PLATINUM | 183.60 |
+| 105 | COPPER   | COPPER   | 255.00 |
++-----+----------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|   1001 |  102 |      300 |
++--------+------+----------+
+1 row in set (0.00 sec)
+
+
+mysql> SELECT NAME,PRICE FROM PRODUCT WHERE PID IN(SELECT PID FROM INVOICE_ITEM);
++------+--------+
+| NAME | PRICE  |
++------+--------+
+| GOLD | 122.40 |
++------+--------+
+1 row in set (0.00 sec)
+-----------------------------------------------------------------------------------------------------------------------------------------------
+3. List the product names, only include their purchased quantity more than 3.
+
++-----+----------+----------+--------+
+| PID | NAME     | PNAME    | PRICE  |
++-----+----------+----------+--------+
+| 101 | DIAMOND  | DIAMOND  | 102.00 |
+| 102 | GOLD     | GOLD     | 122.40 |
+| 103 | SILVER   | SILVER   | 153.00 |
+| 104 | PLATINUM | PLATINUM | 183.60 |
+| 105 | COPPER   | COPPER   | 255.00 |
++-----+----------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT * FROM INVOICE_ITEM;
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|   1001 |  102 |      300 |
+|   1003 |  104 |       99 |
++--------+------+----------+
+
+
+mysql> SELECT NAME FROM PRODUCT WHERE PID IN(SELECT PID FROM INVOICE_ITEM WHERE QUANTITY>3);
++----------+
+| NAME     |
++----------+
+| GOLD     |
+| PLATINUM |
++----------+
+2 rows in set (0.02 sec)
+in set (0.00 sec)6. Display the purchased product details of the customer ’xyz’.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+4. Find the product that has no sale.
+
+mysql> SELECT * FROM PRODUCT;
++-----+----------+----------+--------+
+| PID | NAME     | PNAME    | PRICE  |
++-----+----------+----------+--------+
+| 101 | DIAMOND  | DIAMOND  | 102.00 |
+| 102 | GOLD     | GOLD     | 122.40 |
+| 103 | SILVER   | SILVER   | 153.00 |
+| 104 | PLATINUM | PLATINUM | 183.60 |
+| 105 | COPPER   | COPPER   | 255.00 |
++-----+----------+----------+--------+
+5 rows in set (0.01 sec)
+
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|   1001 |  102 |      300 |
+|   1003 |  104 |       99 |
++--------+------+----------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT * FROM PRODUCT WHERE PID NOT IN(SELECT PID FROM INVOICE_ITEM);
++-----+---------+---------+--------+
+| PID | NAME    | PNAME   | PRICE  |
++-----+---------+---------+--------+
+| 101 | DIAMOND | DIAMOND | 102.00 |
+| 103 | SILVER  | SILVER  | 153.00 |
+| 105 | COPPER  | COPPER  | 255.00 |
++-----+---------+---------+--------+
+3 rows in set (0.00 sec)
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+5. List the customer names who purchased the items ‘GOLD’ and ‘DIAMOND’.
+
+
+
+mysql> SELECT NAME FROM CUSTOMER WHERE ID IN (SELECT CUST_ID FROM INVOICE_MASTER WHERE INV_ID IN (SELECT INV_ID FROM INVOICE_ITEM WHERE PID IN (SELECT PID FROM PRODUCT WHERE PNAME='GOLD' OR  (SELECT PID FROM PRODUCT WHERE PNAME ='DIAMOND'))) );
++--------+
+| NAME   |
++--------+
+| SRUTHY |
+| SHYAM  |
++--------+
+2 rows in set (0.00 sec)
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+6. Display the purchased product details of the customer ’SHYAM’.
+
+mysql> SELECT PNAME,PRICE FROM PRODUCT WHERE PID IN(SELECT PID FROM INVOICE_ITEM WHERE INV_ID IN(SELECT INV_ID FROM INVOICE_MASTER WHERE CUST_ID IN(SELECT ID FROM CUSTOMER WHERE NAME='SHYAM')));
++----------+--------+
+| PNAME    | PRICE  |
++----------+--------+
+| PLATINUM | 183.60 |
++----------+--------+
+1 row in set (0.00 sec)
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+7. List the names of all customers who have purchased at least 2 products, make sure that no duplicate names in the result.
+
+mysql> SELECT NAME FROM CUSTOMER WHERE ID IN(SELECT CUST_ID FROM INVOICE_MASTER WHERE INV_ID IN(SELECT INV_ID FROM INVOICE_ITEM GROUP BY INV_ID HAVING COUNT(INV_ID)>=2));
++-------+
+| NAME  |
++-------+
+| SHYAM |
++-------+
+1 row in set (0.06 sec)
+
+
+
