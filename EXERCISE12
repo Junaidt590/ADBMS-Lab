@@ -26,13 +26,13 @@ Query OK, 0 rows affected (0.00 sec)
 1. GRANT
 Give insert and select privilege to USER1 on customer table in the invoice database.
 
-mysql> GRANT select,insert on CUSTOMER TO USER1@'localhost';
+mysql> GRANT select,insert on CUSTOMER TO USER1@'localhost'; //INVOICE.CUSTOMER
 Query OK, 0 rows affected (0.00 sec)
 
 
 Give update and delete privilege to USER2  on all tables in the invoice database.
 
-mysql> GRANT update,delete on *.* TO USER2@'localhost';
+mysql> GRANT update,delete on *.* TO USER2@'localhost'; //INVOICE.*
 Query OK, 0 rows affected (0.00 sec)
 
 
@@ -43,3 +43,4 @@ Remove delete privilege of USER2.
 mysql> revoke all on *.* from USER2@'localhost';
 Query OK, 0 rows affected (0.00 sec)
 
+//VERIFIED
