@@ -27,7 +27,7 @@ mysql> SELECT * FROM CUSTOMER_PURCHASE;
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
-2.Create a view for invoice products[cname, , inv_id, product_id, quantity]
+2.Create a view for invoice products[cname, , inv_id, product_id, quantity] //WRONG
 
 mysql> CREATE VIEW INVOICE_PRODUCT AS SELECT CUSTOMER.NAME,INVOICE_MASTER.INV_ID,INVOICE_ITEM.PID,INVOICE_ITEM.QUANTITY FROM CUSTOMER LEFT JOIN INVOICE_MASTER ON CUSTOMER.ID=INVOICE_MASTER.CUST_ID LEFT JOIN INVOICE_ITEM ON INVOICE_MASTER.INV_ID=INVOICE_ITEM.INV_ID;
 Query OK, 0 rows affected (0.04 sec)
@@ -54,7 +54,7 @@ mysql> SELECT * FROM INVOICE_PRODUCT;
 
 
 
-
+//CORRECTION
 
 
 
