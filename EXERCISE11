@@ -1,0 +1,69 @@
+								EXERCISE: 11
+
+Optimising database (Using Set, arithmetic, logical and special operators)
+
+
+1.Display customer_id who didn’t purchase items.(using set operation)
+2.Display product details with an updated price amount(new price= old price+5rs)
+3.Display customer details who doesn’t have phone number and lives in ‘Calicut’ city (use logical operators)
+4.List the product names if it finds any records in the invoice items table has quantity =3 (use special operators)
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+1.Display customer id,city who is either in calicut or tvm
+
+mysql> SELECT ID,CITY FROM CUSTOMER WHERE CITY='KOZHIKODE' UNION SELECT ID,CITY FROM CUSTOMER WHERE  CITY='TVM';
++----+-----------+
+| ID | CITY      |
++----+-----------+
+|  5 | KOZHIKODE |
+|  2 | TVM       |
+|  4 | TVM       |
+|  6 | TVM       |
+|  7 | TVM       |
++----+-----------+
+5 rows in set (0.00 sec)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+2.Display product details with an updated price amount(new price= old price+5rs)
+
+mysql> SELECT PID,PNAME,PRICE,PRICE+5 AS "PRICE+5" FROM PRODUCT;
++-----+----------+--------+---------+
+| PID | PNAME    | PRICE  | PRICE+5 |
++-----+----------+--------+---------+
+| 101 | DIAMOND  | 102.00 |  107.00 |
+| 102 | GOLD     | 122.40 |  127.40 |
+| 103 | SILVER   | 153.00 |  158.00 |
+| 104 | PLATINUM | 183.60 |  188.60 |
+| 105 | COPPER   | 255.00 |  260.00 |
++-----+----------+--------+---------+
+5 rows in set (0.00 sec)
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+
+3.Display customer details who doesn’t have phone number and lives in ‘TVM’ city (use logical operators)
+
+mysql> SELECT * FROM CUSTOMER WHERE PH_NO IS NULL AND CITY='TVM';
++----+------+---------+------+-------+
+| ID | NAME | ADDRESS | CITY | PH_NO |
++----+------+---------+------+-------+
+|  4 | SASI | TVM     | TVM  |  NULL |
++----+------+---------+------+-------+
+1 row in set (0.00 sec)
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+4.List the product names if it finds any records in the invoice items table has quantity =4 (use special operators)
+
+mysql> SELECT PNAME FROM PRODUCT WHERE PID IN(SELECT PID FROM INVOICE_ITEM WHERE QUANTITY=2);
++---------+
+| PNAME   |
++---------+
+| DIAMOND |
++---------+
+1 row in set (0.00 sec)
+
+
