@@ -1,0 +1,121 @@
+						EXERCISE 14  PL/SQL PROGRAMS- STORED PROCEDURES
+
+
+1.Create a procedure to display all tables in the invoice database.
+2.Create a procedure to find greatest of 3 numbers.
+3.Create a procedure to display invoice details of a particular customer.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+1.Create a procedure to display all tables in the invoice database.
+
+mysql> delimiter //
+mysql> create procedure INVOICE_tables()
+    ->  begin
+    -> select * from PRODUCT;
+    -> select * from INVOICE_ITEM;
+    -> select * from INVOICE_MASTER;
+    -> select * from CUSTOMER;
+    ->  end//
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call INVOICE_tables()
+    -> //
++-----+----------+----------+--------+
+| PID | NAME     | PNAME    | PRICE  |
++-----+----------+----------+--------+
+| 101 | DIAMOND  | DIAMOND  | 102.00 |
+| 102 | GOLD     | GOLD     | 122.40 |
+| 103 | SILVER   | SILVER   | 153.00 |
+| 104 | PLATINUM | PLATINUM | 183.60 |
+| 105 | COPPER   | COPPER   | 255.00 |
++-----+----------+----------+--------+
+5 rows in set (0.00 sec)
+
++--------+------+----------+
+| INV_ID | PID  | QUANTITY |
++--------+------+----------+
+|   1001 |  102 |      300 |
+|   1003 |  104 |       99 |
+|   1002 |  102 |       10 |
+|   1003 |  102 |       12 |
+|   1002 |  101 |        2 |
++--------+------+----------+
+5 rows in set (0.00 sec)
+
++--------+---------+------------+
+| INV_ID | CUST_ID | INV_DATE   |
++--------+---------+------------+
+|   1001 |       2 | 2021-01-10 |
+|   1002 |       3 | 2022-01-01 |
+|   1003 |       3 | 2022-03-31 |
+|   1004 |       2 | 2021-01-10 |
++--------+---------+------------+
+4 rows in set (0.00 sec)
+
++----+--------+---------+-----------+-----------+
+| ID | NAME   | ADDRESS | CITY      | PH_NO     |
++----+--------+---------+-----------+-----------+
+|  2 | SRUTHY | TVM     | TVM       | 860659743 |
+|  3 | SHYAM  | TSR     | TSR       | 964354144 |
+|  4 | SASI   | TVM     | TVM       |      NULL |
+|  5 | ABIN   | CLT     | KOZHIKODE | 964364644 |
+|  6 | ARJUN  | TVA     | TVM       | 698745326 |
+|  7 | MATHEW | TVK     | TVM       | 698765326 |
++----+--------+---------+-----------+-----------+
+6 rows in set (0.05 sec)
+
+Query OK, 0 rows affected (0.05 sec)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+2.Create a procedure to find greatest of 3 numbers.
+
+mysql> delimiter //
+mysql> create procedure INVOICE_greatest(a int,b int,c int)
+    -> begin
+    -> if(a>b) and (a>c) then
+    -> select a as 'Greatest';
+    -> elseif(b>a) and (b>c) then
+    -> select b as 'Greatest';
+    -> else
+    -> select c as 'Greatest';
+    -> end if;
+    -> end //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call INVOICE_greatest(7,8,3) //
++----------+
+| Greatest |
++----------+
+|        8 |
++----------+
+1 row in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+------------------------------------------------------------------------------------------------------------------------------------------------
+3.Create a procedure to display invoice details of a particular customer.
+
+mysql> create procedure invdetails()
+    -> begin
+    -> 
+    -> select CUSTOMER.NAME,PRODUCT.PNAME,INVOICE_MASTER.INV_DATE,INVOICE_ITEM.QUANTITY FROM PRODUCT INNER JOIN INVOICE_ITEM ON 		PRODUCT.PID=INVOICE_ITEM.PID INNER JOIN INVOICE_MASTER ON INVOICE_ITEM.INV_ID=INVOICE_MASTER.INV_ID INNER JOIN CUSTOMER ON INVOICE_MASTER.CUST_ID=CUSTOMER.ID WHERE CUSTOMER.NAME='SRUTHY';
+    -> 
+    -> end //
+Query OK, 0 rows affected (0.01 sec)
+
+
+
+
+mysql> CALL invdetails
+    -> //
++------+-------+------------+----------+
+| NAME | PNAME | INV_DATE   | QUANTITY |
++------+-------+------------+----------+
+|SRUTHY| GOLD  | 2021-01-10 |     300  |
+|      |       |            |          |
++------+-------+------------+----------+
+2 rows in set (0.00 sec)
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> 
