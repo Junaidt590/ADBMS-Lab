@@ -1,0 +1,35 @@
+						EXERCISE 15 PL/SQL PROGRAMS – FUNCTIONS
+
+
+1.Create a function to calculate price_range(low, medium, high) of each product. If
+price<=5 indicate as low, upto 50 indicate as medium, and above as high.
+
+
+mysql> delimiter //
+mysql> CREATE FUNCTION pricestate(PRICE int) RETURNS VARCHAR(10)
+    -> DETERMINISTIC
+    -> BEGIN
+    -> DECLARE state VARCHAR(10);
+    -> IF PRICE<=5 THEN
+    -> SET state='low';
+    -> ELSEIF PRICE<=50 THEN
+    -> SET state='medium';
+    -> ELSEIF PRICE>50 THEN
+    -> SET state='high';
+    -> END IF;
+    -> RETURN(state);
+    -> END //
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> select PNAME,PRICE,pricestate(PRICE) AS 'state' FROM PRODUCT;//
++----------+--------+-------+
+| PNAME    | PRICE  | state |
++----------+--------+-------+
+| DIAMOND  | 102.00 | high  |
+| GOLD     | 122.40 | high  |
+| SILVER   | 153.00 | high  |
+| PLATINUM | 183.60 | high  |
+| COPPER   | 255.00 | high  |
++----------+--------+-------+
+5 rows in set (0.02 sec)
+
