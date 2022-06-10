@@ -33,3 +33,4 @@ mysql> select PNAME,PRICE,pricestate(PRICE) AS 'state' FROM PRODUCT;//
 +----------+--------+-------+
 5 rows in set (0.02 sec)
 
+//VERIFIED
