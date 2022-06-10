@@ -1,0 +1,62 @@
+1.Create a trigger to handle updates to the customer table.
+
+
+mysql> CREATE TABLE CUST_bck(ID INT,NAME VARCHAR(15) ,ADDRESS VARCHAR(50),CITY VARCHAR(20),PH_NO INT(10));
+    -> //
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+
+
+CREATE TRIGGER Backup BEFORE UPDATE ON CUSTOMER 
+FOR EACH ROW
+BEGIN
+INSERT INTO CUST_bck
+VALUES (OLD.ID, OLD.NAME,OLD.ADDRESS, OLD.CITY, OLD.PH_NO);
+END;
+//
+
+
+mysql> update CUSTOMER set NAME='ARNOLD' where NAME='MAP';//
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> 
++------+------+---------+------+-------+
+| ID   | NAME | ADDRESS | CITY | PH_NO |
++------+------+---------+------+-------+
+|    4 | MAP  | KDY     | CLT  |  9562 |
++------+------+---------+------+-------+
+1 row in set (0.00 sec)
+
+
+2.Create a trigger to handle inserts to the product relation ( if price < 5 the set
+price to 10)
+
+
+
+mysql> CREATE TRIGGER PRODUCT_IN BEFORE INSERT ON PRODUCT 
+    -> FOR EACH ROW
+    -> BEGIN
+    -> IF NEW.PRICE <5 THEN 
+    -> SET NEW.PRICE=10;
+    -> END IF;
+    -> END;
+    -> //
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> INSERT INTO PRODUCT VALUES(101,'BOTILE','BOTILE',4);//
+Query OK, 1 row affected (0.05 sec)
+
+mysql> SELECT * FROM PRODUCT;//
++-----+----------+----------+--------+
+| PID | NAME     | PNAME    | PRICE  |
++-----+----------+----------+--------+
+| 101 | BOTILE   | BOTILE   |  10.00 |
+| 101 | DIAMOND  | DIAMOND  | 102.00 |
+| 102 | GOLD     | GOLD     | 122.40 |
+| 103 | SILVER   | SILVER   | 153.00 |
+| 104 | PLATINUM | PLATINUM | 183.60 |
+| 105 | COPPER   | COPPER   | 255.00 |
++-----+----------+----------+--------+
+6 rows in set (0.00 sec)
+
