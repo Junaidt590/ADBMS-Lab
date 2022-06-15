@@ -1,0 +1,83 @@
+19   
+NoSQL
+– RETRIEVING DATA
+1.      Write
+a MongoDB query to display the customer documents having city ‘ekm’,’tvm’.
+2.     
+Write a MongoDB query to display all
+customer documents who have age >50.
+
+--------------------------------------QUESTION 1-------------------------------------------------------------------------------------------
+> db.customer.find({$or:[{"City":"TVM"},{"City":"CLT"}]}).pretty();
+{
+	"_id" : ObjectId("62a827b876600e75f344ce49"),
+	"Name" : "Adhil",
+	"City" : "CLT",
+	"Ph_no" : "9545541449",
+	"Age" : 20
+}
+{
+	"_id" : ObjectId("62a827d276600e75f344ce4a"),
+	"Name" : "Muvaad",
+	"City" : "CLT",
+	"Ph_no" : "9655541449",
+	"Age" : 19
+}
+{
+	"_id" : ObjectId("62a827f776600e75f344ce4b"),
+	"Name" : "Shamna",
+	"City" : "TVM",
+	"Ph_no" : "9975541449",
+	"Age" : 23
+}
+
+-------------------------------------------------------question 2---------------------------------------------------------------------------
+ db.customer.find({"Age":{$gt:20}}).pretty();
+{
+	"_id" : ObjectId("62a8278876600e75f344ce48"),
+	"Name" : "Arjun",
+	"City" : "WYD",
+	"Ph_no" : "8645541449",
+	"Age" : 25
+}
+{
+	"_id" : ObjectId("62a827f776600e75f344ce4b"),
+	"Name" : "Shamna",
+	"City" : "TVM",
+	"Ph_no" : "9975541449",
+	"Age" : 23
+}
+
+
+---------------------------------------------------QUESTION 3---------------------------------------------------
+
+> db.customer.find({"City":{$ne:"TVM"}}).pretty();
+{
+	"_id" : ObjectId("62a8276676600e75f344ce47"),
+	"Name" : "Scissna",
+	"City" : "TSR",
+	"Ph_no" : "9645541449",
+	"Age" : 20
+}
+{
+	"_id" : ObjectId("62a8278876600e75f344ce48"),
+	"Name" : "Arjun",
+	"City" : "WYD",
+	"Ph_no" : "8645541449",
+	"Age" : 25
+}
+{
+	"_id" : ObjectId("62a827b876600e75f344ce49"),
+	"Name" : "Adhil",
+	"City" : "CLT",
+	"Ph_no" : "9545541449",
+	"Age" : 20
+}
+{
+	"_id" : ObjectId("62a827d276600e75f344ce4a"),
+	"Name" : "Muvaad",
+	"City" : "CLT",
+	"Ph_no" : "9655541449",
+	"Age" : 19
+}
+
